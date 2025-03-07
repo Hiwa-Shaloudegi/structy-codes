@@ -31,8 +31,8 @@ class ZipperLists {
     // Recursive
     public static <T> Node<T> zipperListsRecursive(Node<T> head1, Node<T> head2) {
         if (head1 == null && head2 == null) return null;
-        if (head1 == null && head2 != null) return head2;
-        if (head1 != null && head2 == null) return head1;
+        if (head1 == null) return head2;
+        if (head2 == null) return head1;
 
         if (head1.next == null && head2.next == null) {
             head1.next = head2;
@@ -40,6 +40,21 @@ class ZipperLists {
         }
 
         Node<T> resHead = zipperLists(head1.next, head2.next);
+        head1.next = head2;
+        head2.next = resHead;
+
+        return head1;
+    }
+
+    public static Node<Integer> zipperListsSimplerRecursive(Node<Integer> head1, Node<Integer> head2) {
+        if (head1 == null && head2 == null) return null;
+        if (head1 == null) return head2;
+        if (head2 == null) return head1;
+
+        Node<Integer> next1 = head1.next;
+        Node<Integer> next2 = head2.next;
+        Node<Integer> resHead = zipperListsSimplerRecursive(next1, next2);
+
         head1.next = head2;
         head2.next = resHead;
 
